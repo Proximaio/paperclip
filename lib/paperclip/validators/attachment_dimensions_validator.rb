@@ -76,17 +76,17 @@ module Paperclip
         return 'X-axis' if dim_key == :max_x
         'Y-axis' if dim_key == :max_y
       end
+    end
 
-      module HelperMethods
-        # Places ActiveModel validations on the dimensions of an image or video.
-        # Options:
-        # * +max_x+: Value that the x dimension of an asset cannot exceed
-        # * +max_y+: Value that the y dimension of an asset cannot exceed
-        def validates_attachment_dimensions(*attr_names)
-          options = _merge_attributes(attr_names)
-          validates_with AttachmentDimensionsValidator, options.dup
-          validate_before_processing AttachmentDimensionsValidator, options.dup
-        end
+    module HelperMethods
+      # Places ActiveModel validations on the dimensions of an image or video.
+      # Options:
+      # * +max_x+: Value that the x dimension of an asset cannot exceed
+      # * +max_y+: Value that the y dimension of an asset cannot exceed
+      def validates_attachment_dimensions(*attr_names)
+        options = _merge_attributes(attr_names)
+        validates_with AttachmentDimensionsValidator, options.dup
+        validate_before_processing AttachmentDimensionsValidator, options.dup
       end
     end
   end
