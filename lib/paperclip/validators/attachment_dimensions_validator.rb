@@ -13,31 +13,22 @@ module Paperclip
       end
 
       def validate_each(record, attr_name, _value)
-        Paperclip.log("Validating dimensions for (#{record}), (#{attr_name}), (#{_value})")
         asset = record.send(:read_attribute_for_validation, attr_name)
         return if asset.blank?
 
-        Paperclip.log("Found asset")
         file      = asset.queued_for_write[:original]
         base_type = record.send(:"#{attr_name}_content_type")
         return if file.blank? || base_type.blank?
 
-        Paperclip.log("File and content type found")
-
         content_type = base_type.split('/').first.to_sym
         return unless content_type.in?(VALID_CONTENT_TYPES)
 
-        Paperclip.log("Valid content type found")
-
         asset_x_dim, asset_y_dim = extract_dimensions(content_type, file)
-
-        Paperclip.log("Extracted dimensions: #{asset_x_dim}x#{asset_y_dim}")
 
         # this should allow for procs to determine the max_x or max_y values
         # so a user can specify for image/gif that they want 1920x1080 as a max
         # while for image/png it could be nil or something different
         options.slice(*AVAILABLE_CHECKS).each do |option, option_value|
-          Paperclip.log("checking option (#{option}) and option value (#{option_value})")
           option_value = option_value.call(record) if option_value.is_a?(Proc)
 
           # validate x value and y value are within x and y range
@@ -56,7 +47,6 @@ module Paperclip
       private
 
       def extract_dimensions(content_type, asset)
-        Paperclip.log("extracting dimensions for type (#{content_type})")
         return image_dimensions(asset) if content_type == :image
         return video_dimensions(asset) if content_type == :video
         [0, 0]
@@ -77,9 +67,8 @@ module Paperclip
       end
 
       def dimensions_exceeded?(dim_key, axis_limit, x_val, y_val)
-        Paperclip.log("checking if dimension key (#{dim_key}; #{dim_key.class}) and axis limit (#{axis_limit}) exceeds x (#{x_val}) or y (#{y_val})")
-        return x_val < axis_limit if dim_key == :max_x
-        return y_val < axis_limit if dim_key == :max_y
+        return x_val >= axis_limit if dim_key == :max_x
+        return y_val >= axis_limit if dim_key == :max_y
         true
       end
 
