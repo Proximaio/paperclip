@@ -33,6 +33,9 @@ module Paperclip
         options.slice(*AVAILABLE_CHECKS).each do |option, option_value|
           option_value = option_value.call(record) if option_value.is_a?(Proc)
 
+          # this is to optionally specify that there is no limit for an axis
+          next if option_value.blank?
+
           # validate x value and y value are within x and y range
           if dimensions_exceeded?(option, option_value, asset_x_dim, asset_y_dim)
             record.errors.add(attr_name, "#{axis_string(option)} cannot exceed #{option_value}")
