@@ -1,3 +1,5 @@
+require 'paperclip/video_geometry'
+
 module Paperclip
   module Validators
     class AttachmentDimensionsValidator < ActiveModel::EachValidator
@@ -14,7 +16,7 @@ module Paperclip
 
       def validate_each(record, attr_name, _value)
         asset = record.send(:read_attribute_for_validation, attr_name)
-        return unless asset.present? && record.errors.blank?
+        return unless asset.present?
 
         file      = asset.queued_for_write[:original]
         base_type = record.send(:"#{attr_name}_content_type")
