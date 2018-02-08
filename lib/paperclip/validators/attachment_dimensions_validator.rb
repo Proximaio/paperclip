@@ -72,8 +72,8 @@ module Paperclip
       end
 
       def dimensions_exceeded?(dim_key, axis_limit, x_val, y_val)
-        return x_val >= axis_limit if dim_key == :max_x
-        return y_val >= axis_limit if dim_key == :max_y
+        return x_val > axis_limit if dim_key == :max_x
+        return y_val > axis_limit if dim_key == :max_y
         true
       end
 
