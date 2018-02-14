@@ -66,7 +66,7 @@ module Paperclip
 
       def video_dimensions(asset)
         return [0, 0] if asset.blank?
-        geo = Paperclip::VideoGeometry.from_file(asset.path)
+        geo = Paperclip::VideoGeometry.from_file_path(asset.path)
         return [0, 0] if geo.blank?
         [geo.width.to_i, geo.height.to_i]
       end
