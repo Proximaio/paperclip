@@ -25,7 +25,7 @@ module Paperclip
         content_type = base_type.split('/').first.to_sym
         return unless content_type.in?(VALID_CONTENT_TYPES)
 
-        length_in_seconds = Paperclip::VideoDuration.from_file_path(asset.path)
+        length_in_seconds = Paperclip::VideoDuration.from_file_path(file.path)
 
         # this should allow for procs to determine the max_x or max_y values
         # so a user can specify for image/gif that they want 1920x1080 as a max
