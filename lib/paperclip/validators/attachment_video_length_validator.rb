@@ -59,10 +59,10 @@ module Paperclip
         return true if length_in_seconds.blank?
 
         # return true if the length of a video is lower than the min_length value
-        return length_in_seconds <= limit if option == :min_length
+        return length_in_seconds < limit if option == :min_length
 
         # return true if the length of a video is higher than the max_length value
-        length_in_seconds >= limit if option == :max_length
+        length_in_seconds > limit if option == :max_length
       end
 
       def option_string(option)
