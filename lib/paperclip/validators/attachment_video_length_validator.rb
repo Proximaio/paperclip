@@ -78,8 +78,8 @@ module Paperclip
       # * +max_length+: Value that the y dimension of an asset cannot exceed
       def validates_video_length(*attr_names)
         options = _merge_attributes(attr_names)
-        validates_with AttachmentDimensionsValidator, options.dup
-        validate_before_processing AttachmentDimensionsValidator, options.dup
+        validates_with AttachmentVideoLengthValidator, options.dup
+        validate_before_processing AttachmentVideoLengthValidator, options.dup
       end
     end
   end
