@@ -2,19 +2,19 @@ $LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require 'paperclip/version'
 
 Gem::Specification.new do |s|
-  s.name              = "paperclip"
-  s.version           = Paperclip::VERSION
-  s.platform          = Gem::Platform::RUBY
-  s.author            = "Jon Yurek"
-  s.email             = ["jyurek@thoughtbot.com"]
-  s.homepage          = "https://github.com/thoughtbot/paperclip"
-  s.summary           = "File attachments as attributes for ActiveRecord"
-  s.description       = "Easy upload management for ActiveRecord"
-  s.license           = "MIT"
+  s.name        = "paperclip"
+  s.version     = Paperclip::VERSION
+  s.platform    = Gem::Platform::RUBY
+  s.author      = "Jon Yurek"
+  s.email       = ["jyurek@thoughtbot.com"]
+  s.homepage    = "https://github.com/thoughtbot/paperclip"
+  s.summary     = "File attachments as attributes for ActiveRecord"
+  s.description = "Easy upload management for ActiveRecord"
+  s.license     = "MIT"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   if File.exist?('UPGRADING')
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency('cocaine', '~> 0.5.5')
   s.add_dependency('mime-types')
   s.add_dependency('mimemagic', '~> 0.3.0')
+  s.add_dependency('ffprober', '~> 0.5')
 
   s.add_development_dependency('activerecord', '>= 4.2.0')
   s.add_development_dependency('shoulda')

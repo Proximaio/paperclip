@@ -92,16 +92,16 @@ module Paperclip
     # destination Geometry would be completely filled by the source image, and any
     # overhanging image would be cropped. Useful for square thumbnail images. The cropping
     # is weighted at the center of the Geometry.
-    def transformation_to dst, crop = false
+    def transformation_to(dst, crop = false)
       if crop
-        ratio = Geometry.new( dst.width / self.width, dst.height / self.height )
+        ratio = Geometry.new(dst.width / self.width, dst.height / self.height)
         scale_geometry, scale = scaling(dst, ratio)
         crop_geometry         = cropping(dst, ratio, scale)
       else
         scale_geometry        = dst.to_s
       end
 
-      [ scale_geometry, crop_geometry ]
+      [scale_geometry, crop_geometry]
     end
 
     # resize to a new geometry
@@ -133,19 +133,19 @@ module Paperclip
 
     private
 
-    def scaling dst, ratio
+    def scaling(dst, ratio)
       if ratio.horizontal? || ratio.square?
-        [ "%dx" % dst.width, ratio.width ]
+        ["%dx" % dst.width, ratio.width]
       else
-        [ "x%d" % dst.height, ratio.height ]
+        ["x%d" % dst.height, ratio.height]
       end
     end
 
-    def cropping dst, ratio, scale
+    def cropping(dst, ratio, scale)
       if ratio.horizontal? || ratio.square?
-        "%dx%d+%d+%d" % [ dst.width, dst.height, 0, (self.height * scale - dst.height) / 2 ]
+        "%dx%d+%d+%d" % [dst.width, dst.height, 0, (self.height * scale - dst.height) / 2]
       else
-        "%dx%d+%d+%d" % [ dst.width, dst.height, (self.width * scale - dst.width) / 2, 0 ]
+        "%dx%d+%d+%d" % [dst.width, dst.height, (self.width * scale - dst.width) / 2, 0]
       end
     end
 
